@@ -52,46 +52,46 @@ terraform plan
 terraform apply
 
 ### To set up environment (test /dev /prod)
-•	cd to ../ claim_check/env$
-•	terraform init
-•	terraform workspace list
-•	terraform workspace new test
-•	terraform workspace select test
-•	terraform plan -var-file=test.tfvars
-•	terraform apply -var-file=test.tfvars
+-	cd to ../ claim_check/env$
+-	terraform init
+-	terraform workspace list
+-	terraform workspace new test
+-	terraform workspace select test
+-	terraform plan -var-file=test.tfvars
+-	terraform apply -var-file=test.tfvars
 Note: If you’d like to setup an environment such as dev or prod run the same commands listed above except replace the word test for each step with either dev or prod accordingly. 
 In order to simulate a file being uploaded into a bucket by an application or user, now that the test environment is built out, do the following….
-•	Log into the AWS console and go to S3 resource click Buckets
-•	Click the bucket named “claim-check-test-bucket”. If you were in the dev or prod environments, you would look for the bucket named “claim-check-dev-bucket” or “claim-check-prod-bucket” accordingly
-•	Upload a file or several files
-•	To check SQS first change the current AWS Region to us-west-2. For dev use the us-west-1 region and for prod use the us-east-1 region accordingly.
-•	Go to the SQS resource section and click on queues
-•	Click on the queue named “claim-check-s3-event-notification-queue”
-•	Click on send and receive messages
-•	Scroll down and click on poll for messages
-•	You should now see the SQS messages in the queue
+-	Log into the AWS console and go to S3 resource click Buckets
+-	Click the bucket named “claim-check-test-bucket”. If you were in the dev or prod environments, you would look for the bucket named “claim-check-dev-bucket” or “claim-check-prod-bucket” accordingly
+-	Upload a file or several files
+-	To check SQS first change the current AWS Region to us-west-2. For dev use the us-west-1 region and for prod use the us-east-1 region accordingly.
+-	Go to the SQS resource section and click on queues
+-	Click on the queue named “claim-check-s3-event-notification-queue”
+-	Click on send and receive messages
+-	Scroll down and click on poll for messages
+-	You should now see the SQS messages in the queue
 
  
  
 
 ## Testing
 As a way to test this solution, I’ve created a Lambda Function that periodically runs a python script that will check the SQS queue every 5 minutes and will copy the object key and bucket details into a DynamoDB table.  This is to simulate an application that will poll a queue after some buildup and some time.
-•	Add objects to s3 buckets as instructed above and wait 5 minutes to simulate a queue building up. 
-•	Then to check DynamoDB Table first change the current AWS Region to us-west-2 if you are not there already. For dev use the us-west-1 region and for prod use the us-east-1 region accordingly.
-•	Go to the DynamoDB resource section and click on Tables
+-	Add objects to s3 buckets as instructed above and wait 5 minutes to simulate a queue building up. 
+-	Then to check DynamoDB Table first change the current AWS Region to us-west-2 if you are not there already. For dev use the us-west-1 region and for prod use the us-east-1 region accordingly.
+-	Go to the DynamoDB resource section and click on Tables
 Click on the table named “ClaimCheck”
-•	Click on explore table items
-•	Click run and you should see a table whose items include columns consisting of the Object Key listing the title of each object in the bucket from the SQS queue messages as well as the bucket name.
+-	Click on explore table items
+-	Click run and you should see a table whose items include columns consisting of the Object Key listing the title of each object in the bucket from the SQS queue messages as well as the bucket name.
 
  
 
 ## Future Improvements
 The items listed below should be implemented prior to using this in production. I began implementing some of these items but ran into issues. So, in the interest of time these items can be implemented later while working in the test environment.  
-•	Enable encryption on S3 bucket 
-•	Make S3 bucket private
-•	Enable encryption on SQS queue
-•	Add a Lambda Function python script or s3 bucket lifecycle policy that would delete the objects in the s3 bucket after they’ve been proceed.
-•	Add feature to delete SQS messages and DynamoDB table items after being procced by app
-•	Use separate AWS accounts for test, dev, prod environments
+-	Enable encryption on S3 bucket 
+-	Make S3 bucket private
+-	Enable encryption on SQS queue
+-	Add a Lambda Function python script or s3 bucket lifecycle policy that would delete the objects in the s3 bucket after they’ve been proceed.
+-	Add feature to delete SQS messages and DynamoDB table items after being procced by app
+-	Use separate AWS accounts for test, dev, prod environments
 
 
