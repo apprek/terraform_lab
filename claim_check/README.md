@@ -33,9 +33,9 @@ Directly below you’ll see a directory tree for all of the Terraform files used
 
 ### To setup global AWS resources. This includes IAM Roles and Policies 
 cd to ../ claim_check/global_resources$
-terraform init
-terraform plan 
-terraform apply
+- terraform init
+- terraform plan 
+- terraform apply
 
 ### To set up environment (test /dev /prod)
 -	cd to ../ claim_check/env$
