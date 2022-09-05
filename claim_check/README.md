@@ -29,22 +29,8 @@ DynamoDB –  a fully managed NoSQL database service that provides fast and pred
 ## Walk thru of the solution
 Directly below you’ll see a directory tree for all of the Terraform files used to implement this solution. The Terraform was set up in a way that allows you to implement this in multiple environments. So, a developer can run this solution in separate test, dev and prod environments. These environments are separated by regions as the test environment is ran in us-west2, the dev environment in us-west-1 and the prod environment in us-east-1. I’m able to do this by taking advantage of Terraform Workspaces. Each environment is separated by region and has its own Terraform Workspace. Since I do not have multiple AWS accounts I did it this way. However, in a real-world scenario it would be best to use separate AWS accounts for each environment as per AWS best practices. 
 
-├── Provision_AWS_Infrastructure_For_Claim_Check_Solution_Using_Terraform.docx
-├── env
-│   ├── backend.tf
-│   ├── dev.tfvars
-│   ├── lambda2
-│   │   └── sqs_check.py
-│   ├── lambda2.zip
-│   ├── main.tf
-│   ├── prod.tfvars
-│   ├── provider.tf
-│   ├── test.tfvars
-│   └── vars.tf
-├── global_resources
-│   ├── gbl_main.tf
-│   ├── global_backend.tf
-│   └── vars.tf
+![](https://github.com/apprek/terraform_lab/blob/master/claim_check/claim_check_tree.jpg)
+
 ### To setup global AWS resources. This includes IAM Roles and Policies 
 cd to ../ claim_check/global_resources$
 terraform init
