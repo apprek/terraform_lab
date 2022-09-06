@@ -3,7 +3,7 @@
 
 # Provision AWS Infrastructure for Claim Check Solution Using Terraform
 
-Overview of the problem 
+## Overview of the problem 
 The application team needs to process a type of request that can take several minutes to complete. The input payloads will range in size and can be arbitrarily large. They’ve decided to use a messaging architecture for these requests and would like new infrastructure setup in their cloud provider. They intend to follow the claim check pattern and you've been asked to set up an object storage container that payloads will be written into. Whenever an object is added, an entry that references the new object must be added into a message queue managed by the cloud provider. The application team will design their application to work against the cloud provider's message queue.
 
 ## Solution summary
