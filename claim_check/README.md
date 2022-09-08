@@ -7,7 +7,8 @@
 The application team needs to process a type of request that can take several minutes to complete. The input payloads will range in size and can be arbitrarily large. They’ve decided to use a messaging architecture for these requests and would like new infrastructure setup in their cloud provider. They intend to follow the claim check pattern and you've been asked to set up an object storage container that payloads will be written into. Whenever an object is added, an entry that references the new object must be added into a message queue managed by the cloud provider. The application team will design their application to work against the cloud provider's message queue.
 
 ## Solution summary
- 
+
+![](./claim_check/claimcheckdwg.png)
 I’ve designed and implemented a solution that will allow a user or application to upload an object (file) into an AWS S3 bucket.  As soon the file is being uploaded to an S3 bucket, an event for that action is also created. The solution filters for that file upload to S3 event and sends an event notification SQS. So, while the file is being place in the S3 bucket, metadata about that file such as the filename and the S3 bucket it is stored in is being place into an SQS Queue. Now the developers can have their application poll the SQS Queue for the objects in S3 bucket and process them whenever the application is ready. To simulate that as well as to give the developers another place to view what is in the S3 bucket, I wrote a Lambda function in Python, that would periodically poll the SQS Queue, every 5 minutes and upload info about each file into a DynamoDB database table.
 Pre-requisites for implementation of the solution
 The following is required to setup the environment in order to implement this solution.
